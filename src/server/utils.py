@@ -1,4 +1,4 @@
-import urllib
+from urllib.request import urlopen
 
 import numpy as np
 import cv2
@@ -15,7 +15,7 @@ def url_to_img(url: str) -> np.array:
              representing the image; otherwise, returns None.
     :rtype: np.array
     """
-    req = urllib.urlopen(url)
+    req = urlopen(url)
     arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
     img = cv2.imdecode(arr, -1)
     return img
