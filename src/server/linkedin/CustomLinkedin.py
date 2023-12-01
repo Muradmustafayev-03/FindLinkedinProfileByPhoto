@@ -3,6 +3,9 @@ from linkedin_api.utils.helpers import get_id_from_urn, get_urn_from_raw_update
 
 
 class CustomLinkedin(Linkedin):
+    """
+    Custom LinkedIn class that extends the linkedin_api library to adapt to the needs of the project.
+    """
     def __init__(self, username, password):
         super().__init__(username, password)
 
@@ -124,7 +127,8 @@ class CustomLinkedin(Linkedin):
             title=None,  # DEPRECATED - use keyword_title
             **kwargs,
     ):
-        """Perform a LinkedIn search for people.
+        """
+         Custom LinkedIn search for people. Yield results as they are fetched.
 
         :param keywords: Keywords to search on
         :type keywords: str, optional
@@ -243,7 +247,8 @@ class CustomLinkedin(Linkedin):
             }
 
     def urn_to_public_id(self, urn_id):
-        """Convert a LinkedIn URN ID to a public ID.
+        """
+        Convert a LinkedIn URN ID to a public ID.
 
         :param urn_id: LinkedIn URN ID
         :type urn_id: str
