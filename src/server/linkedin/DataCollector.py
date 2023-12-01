@@ -20,6 +20,9 @@ class DataCollector:
         self.photo_parser = PhotoParser(username, password)
         self.face_detector = dlib.get_frontal_face_detector()
 
+        self.root_url = 'https://www.linkedin.com'
+        self.offset = 0
+
     def is_a_face(self, photo_url) -> bool:
         """
         Check if a given photo URL contains exactly one face.
@@ -37,3 +40,18 @@ class DataCollector:
 
         # Return True if there is exactly one face on the photo
         return len(self.face_detector(gray)) == 1
+
+    def search(self, chunk_size: int = 100, **kwargs):
+        for profile in self.linkedin.search_people(kwargs, limit=chunk_size, offset=self.offset):
+            profile_id = profile['public_id']
+            profile_url = f'{self.root_url}/in/{profile_id}'
+            photo_url = self.photo_parser.get_photo(profile_url)
+
+            if photo_url and self.is_a_face(photo_url):
+                profile['url'] = profile_url
+                profile['photo'] = photo_url
+                yield profile
+            else:
+                print(f"Couldn't distinguish {profile['name']}'s from their profile photo: {photo_url}")
+
+            self.offset += 1
