@@ -6,7 +6,15 @@ from bs4 import BeautifulSoup
 
 
 class PhotoParser:
-    def __init__(self, username, password):
+    """
+    A class to parse profile photos of LinkedIn users.
+
+    :param username: Username of LinkedIn account.
+    :type username: str
+    :param password: Password of LinkedIn account.
+    :type password: str
+    """
+    def __init__(self, username: str, password: str):
         self.__username = username
         self.__password = password
 
@@ -35,7 +43,16 @@ class PhotoParser:
         self.driver.find_element('id', 'password').send_keys(self.__password)
         self.driver.find_element('css selector', '.btn__primary--large').click()
 
-    def get_photo(self, profile_url):
+    def get_photo(self, profile_url: str) -> str or None:
+        """
+        Retrieve the profile photo URL from the specified LinkedIn profile URL.
+
+        :param profile_url: LinkedIn profile URL from which to fetch the photo.
+        :type profile_url: str
+
+        :return: If a photo is found, returns the URL of the photo; otherwise, returns None.
+        :rtype: str
+        """
         url = f'{profile_url}/overlay/photo/'
         self.driver.get(url)
 

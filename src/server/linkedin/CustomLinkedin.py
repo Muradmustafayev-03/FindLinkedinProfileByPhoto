@@ -5,8 +5,13 @@ from linkedin_api.utils.helpers import get_id_from_urn, get_urn_from_raw_update
 class CustomLinkedin(Linkedin):
     """
     Custom LinkedIn class that extends the linkedin_api library to adapt to the needs of the project.
+
+    :param username: Username of LinkedIn account.
+    :type username: str
+    :param password: Password of LinkedIn account.
+    :type password: str
     """
-    def __init__(self, username, password):
+    def __init__(self, username: str, password: str):
         super().__init__(username, password)
 
     def search(self, params, limit=-1, offset=0):
@@ -171,8 +176,7 @@ class CustomLinkedin(Linkedin):
         :param title: Job title (DEPRECATED - use keyword_title)
         :type title: str, optional
 
-        :return: List of profiles (minimal data only)
-        :rtype: list
+        :rtype: Iterator[dict]
         """
         filters = ["(key:resultType,value:List(PEOPLE))"]
         if connection_of:
@@ -246,7 +250,7 @@ class CustomLinkedin(Linkedin):
                 "name": (item.get("title") or {}).get("text", None),
             }
 
-    def urn_to_public_id(self, urn_id):
+    def urn_to_public_id(self, urn_id: str) -> str:
         """
         Convert a LinkedIn URN ID to a public ID.
 
