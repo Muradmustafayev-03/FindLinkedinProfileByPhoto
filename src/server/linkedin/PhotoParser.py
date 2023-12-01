@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchDriverException
 from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
 
 
 class PhotoParser:
@@ -33,3 +34,13 @@ class PhotoParser:
         self.driver.find_element('id', 'username').send_keys(self.__username)
         self.driver.find_element('id', 'password').send_keys(self.__password)
         self.driver.find_element('css selector', '.btn__primary--large').click()
+
+    def get_photo(self, profile_url):
+        url = f'{profile_url}/overlay/photo/'
+        self.driver.get(url)
+
+        soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+        img = soup.find('img', {'class': 'pv-member-photo-modal__content-image evi-image ember-view'})
+        if img:
+            return img['src']
+        return None
