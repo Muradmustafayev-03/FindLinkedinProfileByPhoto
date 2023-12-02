@@ -3,7 +3,7 @@ import cv2
 
 from .CustomLinkedin import CustomLinkedin
 from .PhotoParser import PhotoParser
-from ..utils import url_to_img
+from src.server.common import url_to_img
 
 
 class DataCollector:
