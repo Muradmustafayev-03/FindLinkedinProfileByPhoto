@@ -1,1 +1,1 @@
-from recognition import face_matching_probability
+from .recognition import face_matching_probability
