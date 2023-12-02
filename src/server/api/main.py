@@ -8,13 +8,14 @@ from src.server import DataCollector, face_matching_probability, url_to_img
 app = FastAPI()
 
 
-@app.post("api/v1/find_profiles")
+@app.post("/api/v1/find_profiles")
 async def find_profiles(
         username: str = Form(...),
         password: str = Form(...),
         photo: UploadFile = File(...),
         keywords: str = Form(None),
         chunk_size: int = Form(100),
+        threshold: float = Form(0.5),
 ):
     """
     Finds LinkedIn profiles of people found on the photo
@@ -29,9 +30,11 @@ async def find_profiles(
 
         matches = []
         for profile in data_collector.search(keywords, chunk_size):
+            print(profile)
             photo = url_to_img(profile['photo'])
-            if face_matching_probability(img, photo):
+            if face_matching_probability(img, photo) > threshold:
                 matches.append(profile)
+                print('MATCHES!')
         return JSONResponse(content=matches, status_code=200)
 
     except Exception as e:
