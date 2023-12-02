@@ -17,4 +17,6 @@ _**Note:** the program uses `dlib` library, that relies on `c++` code, which wou
    *__Note:__ Indeed, these constants can also be declared in the `main.py` file of the client folder*
 
 4. In the `main.py` file of the client folder specify the path to your photo and other parameters
-
+5. Run `python -m server.api.main.py` to start the server
+6. Run `python -m client.main.py` to send request from the client
+7. Wait for the response
