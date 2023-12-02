@@ -10,4 +10,11 @@ _**Note:** the program uses `dlib` library, that relies on `c++` code, which wou
 ### To run the program, proceed the following steps:
 1. Clone this repository
 2. Run `pip install -r requirements.txt` in your terminal
-3. 
+3. Create a `secret.py` file with 2 constants:
+   * `USERNAME` (str) - your LinkedIn username
+   * `PASSWORD` (str) - your LinkedIn password
+
+   *__Note:__ Indeed, these constants can also be declared in the `main.py` file of the client folder*
+
+4. In the `main.py` file of the client folder specify the path to your photo and other parameters
+
