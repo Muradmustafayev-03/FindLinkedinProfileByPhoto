@@ -41,20 +41,23 @@ class DataCollector:
         # Return True if there is exactly one face on the photo
         return len(self.face_detector(gray)) == 1
 
-    def search(self, chunk_size: int = 100, **kwargs):
+    def search(self, chunk_size: int = 100, keywords: str = None, **kwargs):
         """
-                Search for LinkedIn profiles based on specified criteria.
+        Search for LinkedIn profiles based on specified criteria.
 
-                :param chunk_size: Number of profiles to fetch in each iteration. Defaults to 100.
-                :type chunk_size: int
+        :param keywords: Keywords to search on
+        :type keywords: str, optional
 
-                :param kwargs: Additional search criteria as key-value pairs.
-                :type kwargs: dict
+        :param chunk_size: Number of profiles to fetch in each iteration. Defaults to 100.
+        :type chunk_size: int
 
-                :return: Generator that yields profiles with photo URLs.
-                :rtype: Interator[dict]
-                """
-        for profile in self.linkedin.search_people(kwargs, limit=chunk_size, offset=self.offset):
+        :param kwargs: Additional search criteria as key-value pairs.
+        :type kwargs: dict
+
+        :return: Generator that yields profiles with photo URLs.
+        :rtype: Interator[dict]
+        """
+        for profile in self.linkedin.search_people(keywords, kwargs, limit=chunk_size, offset=self.offset):
             profile_id = profile['public_id']
             profile_url = f'{self.root_url}/in/{profile_id}'
             photo_url = self.photo_parser.get_photo(profile_url)
