@@ -8,14 +8,17 @@ from src.server import DataCollector, face_matching_probability, url_to_img
 app = FastAPI()
 
 
-@app.post("/process_photo")
-async def process_photo(
+@app.post("api/v1/find_profiles")
+async def find_profiles(
         username: str = Form(...),
         password: str = Form(...),
         photo: UploadFile = File(...),
         keywords: str = Form(None),
         chunk_size: int = Form(100),
 ):
+    """
+    Finds LinkedIn profiles of people found on the photo
+    """
     try:
         data_collector = DataCollector(username, password)
 
