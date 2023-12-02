@@ -242,6 +242,8 @@ class CustomLinkedin(Linkedin):
 
             urn_id = get_id_from_urn(get_urn_from_raw_update(item.get("entityUrn", None)))
             distance = (item.get("entityCustomTrackingInfo") or {}).get("memberDistance", None)
+            if distance == 'SELF':
+                distance = '_0'
             yield {
                 "public_id": self.urn_to_public_id(urn_id),
                 "distance": int(distance.split("_")[1]) if distance else None,
