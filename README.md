@@ -20,3 +20,8 @@ _**Note:** the program uses `dlib` library, that relies on `c++` code, which wou
 5. Run `python -m server.api.main.py` to start the server
 6. Run `python -m client.main.py` to send request from the client
 7. Wait for the response
+
+## Parameters
+* **keywords** - a string with space-separated keywords to narrow the range of the search down. Recommended to specify as many known details as possible to make the search quicker. **WARNING:** Do not put commas, separate keywords with spaces.
+* **chunk_size** - number of profiles to be processed in a single request. For now, as there is no authentication system, so the back-end does not remember the offset and the progress for the previous request is not saved for the next one (implies that you have to assign larger values). In future, the authentication system will be added, so you can assign smaller values and run requests several times.
+* **threshold** - threshold for the face recognition model. Float from 0 to 1.
