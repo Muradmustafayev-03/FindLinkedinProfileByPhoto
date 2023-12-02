@@ -34,3 +34,8 @@ async def process_photo(
     except Exception as e:
         return JSONResponse(content={"message": f"Error processing photo: {str(e)}", "status": "error"},
                             status_code=500)
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
