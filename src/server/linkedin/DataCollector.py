@@ -42,6 +42,18 @@ class DataCollector:
         return len(self.face_detector(gray)) == 1
 
     def search(self, chunk_size: int = 100, **kwargs):
+        """
+                Search for LinkedIn profiles based on specified criteria.
+
+                :param chunk_size: Number of profiles to fetch in each iteration. Defaults to 100.
+                :type chunk_size: int
+
+                :param kwargs: Additional search criteria as key-value pairs.
+                :type kwargs: dict
+
+                :return: Generator that yields profiles with photo URLs.
+                :rtype: Interator[dict]
+                """
         for profile in self.linkedin.search_people(kwargs, limit=chunk_size, offset=self.offset):
             profile_id = profile['public_id']
             profile_url = f'{self.root_url}/in/{profile_id}'
