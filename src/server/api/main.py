@@ -63,3 +63,7 @@ def search_people():
 
         if face_matching_probability(profile_photo, input_photo) > 0.4:
             yield jsonify(profile)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
