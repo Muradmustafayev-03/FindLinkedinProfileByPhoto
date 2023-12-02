@@ -23,6 +23,9 @@ class DataCollector:
         self.root_url = 'https://www.linkedin.com'
         self.offset = 0
 
+    def refresh_offset(self):
+        self.offset = 0
+
     def is_a_face(self, photo_url) -> bool:
         """
         Check if a given photo URL contains exactly one face.
@@ -41,7 +44,7 @@ class DataCollector:
         # Return True if there is exactly one face on the photo
         return len(self.face_detector(gray)) == 1
 
-    def search(self, chunk_size: int = 100, keywords: str = None, **kwargs):
+    def search(self, keywords: str = None, chunk_size: int = 100, **kwargs):
         """
         Search for LinkedIn profiles based on specified criteria.
 
